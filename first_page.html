@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用戶資料輸入表單</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 450px;
+      padding: 30px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      box-sizing: border-box;
+      background-color: #f9f9f9;
+      transition: border 0.3s ease-in-out;
+    }
+
+    input[type="text"]:focus, input[type="number"]:focus, select:focus {
+      border: 2px solid #2575fc;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #2575fc;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #6a11cb;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>用戶資料輸入</h1>
+    <form id="userForm" action="second_page.html" method="GET">
+      <div class="form-group">
+        <label for="name">姓名：</label>
+        <input type="text" id="name" name="name" required placeholder="請輸入您的姓名">
+      </div>
+
+      <div class="form-group">
+        <label for="age">年齡：</label>
+        <input type="number" id="age" name="age" required placeholder="請輸入您的年齡">
+      </div>
+
+      <div class="form-group">
+        <label for="constellation">星座：</label>
+        <select id="constellation" name="constellation" required>
+          <option value="白羊座">白羊座</option>
+          <option value="金牛座">金牛座</option>
+          <option value="雙子座">雙子座</option>
+          <option value="巨蟹座">巨蟹座</option>
+          <option value="獅子座">獅子座</option>
+          <option value="處女座">處女座</option>
+          <option value="天秤座">天秤座</option>
+          <option value="天蠍座">天蠍座</option>
+          <option value="射手座">射手座</option>
+          <option value="摩羯座">摩羯座</option>
+          <option value="水瓶座">水瓶座</option>
+          <option value="雙魚座">雙魚座</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="preference">喜好：</label>
+        <select id="preference" name="preference" required>
+          <option value="日系">日系</option>
+          <option value="韓系">韓系</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="location">目前所在地區：</label>
+        <select id="location" name="location" required>
+          <option value="台北市">台北市</option>
+          <option value="基隆市">基隆市</option>
+          <option value="新北市">新北市</option>
+          <option value="桃園市">桃園市</option>
+          <option value="台中市">台中市</option>
+          <option value="台南市">台南市</option>
+          <option value="高雄市">高雄市</option>
+          <option value="新竹市">新竹市</option>
+          <option value="嘉義市">嘉義市</option>
+          <option value="屏東縣">屏東縣</option>
+          <option value="宜蘭縣">宜蘭縣</option>
+          <option value="花蓮縣">花蓮縣</option>
+          <option value="台東縣">台東縣</option>
+          <option value="澎湖縣">澎湖縣</option>
+          <option value="金門縣">金門縣</option>
+          <option value="馬祖">馬祖</option>
+        </select>
+      </div>
+
+      <button type="submit">提交</button>
+    </form>
+    <div class="footer">© 2025 用戶資料表單</div>
+  </div>
+</body>
+</html>
