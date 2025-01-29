@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>今日星座運勢與天氣</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>今日星座運勢與天氣</h1>
+
+    <!-- 用戶資料 -->
+    <div class="user-info">
+      <h2>歡迎，<span id="userName"></span>！</h2>
+      <p><strong>年齡：</strong><span id="userAge"></span></p>
+      <p><strong>星座：</strong><span id="userConstellation"></span></p>
+      <p><strong>目前所在地區：</strong><span id="userLocation"></span></p>
+    </div>
+
+    <!-- 天氣區塊 -->
+    <div class="weather-section">
+      <h2>今日天氣</h2>
+      <div class="weather-info">
+        <p><strong>地點：</strong><span id="weatherLocation"></span></p>
+        <p><strong>天氣狀況：</strong><span id="weatherStatus"></span></p>
+        <p><strong>溫度：</strong><span id="temperature"></span></p>
+      </div>
+    </div>
+
+    <!-- 星座運勢區塊 -->
+    <div class="horoscope-section">
+      <h2>今日星座運勢</h2>
+      <div class="horoscope-info">
+        <p><strong>幸運色：</strong><span id="luckyColor" class="fortune-color"></span></p>
+        <p><strong>星座小語：</strong><span id="horoscopeMessage"></span></p>
+      </div>
+    </div>
+
+    <!-- 服裝搭配區塊 -->
+    <div class="outfit-section">
+      <h2>今日服裝搭配建議</h2>
+      <div class="outfit-info">
+        <p><strong>搭配建議：</strong><span id="outfitSuggestion"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2025 星座運勢與天氣資訊</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
