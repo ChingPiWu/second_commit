@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>推薦結果</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ca9f9f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .result-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        .info {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .info p {
+            margin: 5px 0;
+        }
+        .image-container {
+            margin-top: 15px;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h2>您的個人推薦</h2>
+        <div class="info">
+            <p><strong>姓名：</strong> <span id="name"></span></p>
+            <p><strong>年齡：</strong> <span id="age"></span></p>
+            <p><strong>性別：</strong> <span id="gender"></span></p>
+            <p><strong>星座：</strong> <span id="zodiac"></span></p>
+            <p><strong>地區：</strong> <span id="region"></span></p>
+            <p><strong>風格偏好：</strong> <span id="style"></span></p>
+        </div>
+        <h3>星座運勢</h3>
+        <p id="horoscope"></p>
+        <h3>今日天氣</h3>
+        <p id="weather"></p>
+        <h3>推薦服裝搭配</h3>
+        <div class="image-container">
+            <img id="fashion-image" src="" alt="今日推薦穿搭">
+        </div>
+    </div>
+
+    <script>
+        // 解析 URL 參數
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('name').textContent = urlParams.get('name');
+        document.getElementById('age').textContent = urlParams.get('age');
+        document.getElementById('gender').textContent = urlParams.get('gender');
+        document.getElementById('zodiac').textContent = urlParams.get('zodiac');
+        document.getElementById('region').textContent = urlParams.get('region');
+        document.getElementById('style').textContent = urlParams.get('style');
+
+        const weatherData = {
+            "台北市": "今日天氣：晴天，氣溫 25°C",
+            "高雄市": "今日天氣：多雲，氣溫 28°C"
+        };
+
+        const fashionImages = {
+            "日系": "fashion_japan.jpg",
+            "韓系": "fashion_korea.jpg"
+        };
+
+        // 設定星座運勢
+        let constellationData = [];
+        const selectedConstellation = urlParams.get('zodiac');
+
+        // 設定星座運勢標題
+        // document.getElementById('horoscope').textContent = `您的星座是：${selectedConstellation}`;
+        console.log('選擇的星座:', selectedConstellation);  // 查看是否正確取得星座名稱
+
+        // 自動抓取CSV檔案
+        fetch('horoscope.csv')  // 確保此URL正確
+            .then(response => response.text())
+            .then(data => {
+                const lines = data.split('\n');
+                lines.forEach((line, index) => {
+                    if (index > 0) {  // 跳過標題行
+                        const columns = line.split(',');
+                        if (columns.length === 2) {
+                            constellationData.push({ horoscope: columns[0].trim(), comment: columns[1].trim() });
+                        }
+                    }
+                });
+
+                console.log('解析的星座資料:', constellationData);  // 查看CSV資料
+
+                // 根據選擇的星座顯示對應的短評
+                const found = constellationData.find(item => item.horoscope === selectedConstellation);
+                if (found) {
+                    document.getElementById('horoscope').textContent += ` - ${found.comment}`;
+                } else {
+                    document.getElementById('horoscope').textContent += ' - 找不到該星座的短評。';
+                }
+            })
+            .catch(error => {
+                console.error('無法抓取CSV檔案:', error);
+                document.getElementById('horoscope').textContent += ' - 無法載入星座短評。';
+            });
+
+        // 設定天氣運勢
+        let constellationData_2 = [];
+        const selectedweather = urlParams.get('region');
+
+        // 設定天氣標題
+        console.log('選擇的地區:', selectedweather);  // 查看是否正確取得地區名稱
+
+        // 自動抓取CSV檔案
+        fetch('weather.csv')
+    .then(response => response.text())
+    .then(data => {
+        const lines = data.split('\n');
+        lines.forEach((line, index) => {
+            if (index > 0) {  // 跳過標題行
+                const columns = line.replace(/\r/g, '').split(',');
+                if (columns.length >= 3) {  // 確保有足夠的欄位
+                    constellationData_2.push({ 
+                        region: columns[0].trim(), 
+                        description: columns[1].trim(),
+                        temperature: columns[2].trim()
+                    });
+                }
+            }
+        });
+
+        console.log('解析的天氣資料:', constellationData_2);
+
+        // 根據選擇的地區顯示對應的天氣資訊
+        const found = constellationData_2.find(item => item.region === selectedweather);
+        if (found) {
+            document.getElementById('weather').textContent = `${found.region}，${found.description}，${found.temperature}`;
+        } else {
+            document.getElementById('weather').textContent = '找不到該地區的天氣資訊。';
+        }
+    })
+    .catch(error => {
+        console.error('無法抓取CSV檔案:', error);
+        document.getElementById('weather').textContent = '無法載入天氣資訊。';
+    });
+        // 設定服裝推薦圖
+        const style = urlParams.get('style');
+        document.getElementById('fashion-image').src = fashionImages[style] || "default_fashion.jpg";
+    </script>
+</body>
+</html>
